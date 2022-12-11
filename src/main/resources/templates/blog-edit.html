@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"> <!--// Указываем, что используем шаблонизатор thymeleaf (прописан в pom.xml)-->
+    <head>
+        <title>Post editing</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    </head>
+    <body>
+        <header th:insert="blocks/header :: header"></header>
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            html {
+                height: 100%;
+            }
+            body {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+            }
+            .content {
+                flex: 1 0 auto;
+            }
+            footer {
+                flex: 0 0 auto;
+            }
+        </style>
+
+        <div class="content">
+            <div class="container mt-5 mb-5">
+                <h1>Post editing</h1>
+                <div th:each="element : ${post}">
+                    <form method="post"> <!--// Добавление полей в форму:-->
+                        <label>
+                            <input type="text" th:value="${element.title}" name="title" placeholder="Enter the title of the article" class="form-control">
+                        </label><br>
+                        <label>
+                            <input type="text" th:value="${element.announcement}" name="announcement" placeholder="Enter the announcement of the article" class="form-control">
+                        </label><br>
+                        <label>
+                            <textarea name="fullText" placeholder="Enter the full text of the article" class="form-control" th:text="${element.fullText}"></textarea>
+                        </label><br>
+                        <button type="submit" class="btn btn-success">Update</button> <!--// type=submit означает, что после нажатия кнопки страничка будет перезагружаться, а данные отправляться на сервер-->
+                    </form>
+                </div>
+                <!--// В action прописывается страничка, на которой будет происходить обработка формы (принято указывать ту же, на которой находится форма)-->
+                <!--// Если удалить атрибут action, то обработка формы будет происходить на той же страничке, на которой она находится-->
+                <!--// В method прописывается метод передачи данных (post - скрытая передача на сервер, get - открыто по URL)-->
+            </div>
+        </div>
+
+        <footer th:insert="blocks/footer :: footer"></footer>
+    </body>
+</html>

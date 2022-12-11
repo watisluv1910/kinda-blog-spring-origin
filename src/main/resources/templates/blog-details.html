@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"> <!--// Указываем, что используем шаблонизатор thymeleaf (прописан в pom.xml)-->
+    <head>
+        <title>Blog site</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    </head>
+    <body>
+        <header th:insert="blocks/header :: header"></header>
+
+        <div class="album py-2 bg-light">
+            <div class="container mt-5">
+                <div th:each="element : ${post} " class="alert alert-info mt-2">
+                    <h1 th:text="${element.title}"></h1>
+                    <p th:text="${element.fullText}"></p>
+                    <p> <span class="h6">Views: </span> <a th:text="${element.views}"></a> </p>
+                    <a th:href="'/blog/' + ${element.id} + '/edit'" class="btn btn-warning">Edit</a>
+                    <form style="display: inline-block;" th:action="'/blog/' + ${element.id} + '/delete'" method="post"> <!--Обработка формы будет происходить по этому адресу-->
+                        <button class="btn btn-warning" type="submit">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <footer th:insert="blocks/footer :: footer"></footer>
+    </body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en"> <!--// Указываем, что используем шаблонизатор thymeleaf (прописан в pom.xml)-->
+    <head>
+        <title>Blog site</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    </head>
+    <body>
+        <header th:insert="blocks/header :: header"></header>
+
+        <div class="album py-2 bg-light">
+            <div class="container mt-2">
+                <h1>Blogs</h1>
+                <div th:each="element : ${posts} " class="alert alert-info mt-2"> <!--// Перебор записей, полученных из БД (цикл из thymeleaf)-->
+                    <h3 th:text="${element.title}"></h3>
+                    <p th:text="${element.announcement}"></p>
+                    <a th:href="'/blog/' + ${element.id}" class="btn btn-warning">More details</a> <!--// Ссылка на прочтение более детальной информации-->
+                </div>
+            </div>
+        </div>
+
+        <footer th:insert="blocks/footer :: footer"></footer>
+    </body>
+</html>
